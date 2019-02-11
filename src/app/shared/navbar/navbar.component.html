@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="selectable" routerLink="/home">
+      <img src="../../../assets/logo.png">
+      <span style="margin-top: 15px;"> News</span>
+    </div>
+    <span class="spacer"></span>
+    <div *ngIf="auth.afAuth.authState | async as user; else showLogin">
+      <img mat-card-avatar src="{{user.photoURL}}">
+      <!--<span> {{user.displayName.split(' ')[0]}} </span>-->
+      <button mat-raised-button color="accent" routerLink="/dashboard">Add New</button>
+      <button mat-icon-button (click)="auth.logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+    <ng-template #showLogin>
+      <button mat-button (click)="auth.login()">Login with Google</button>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>

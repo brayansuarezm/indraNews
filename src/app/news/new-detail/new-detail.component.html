@@ -1,0 +1,35 @@
+<ng-container *ngIf="new">
+  <!--Edit mode-->
+  <div [hidden]="!editing">
+    <mat-card>
+      <h2>Update New</h2>
+      <mat-form-field>
+        <input matInput placeholder="New Title" [(ngModel)]="new.title">
+      </mat-form-field> <br>
+      <mat-form-field>
+        <textarea matInput placeholder="New Content" [(ngModel)]="new.content" rows="10"></textarea>
+      </mat-form-field> <br>
+      <button mat-raised-button color="accent" (click)="updateNew()">Save</button>
+      <button mat-button (click)="editing=false">Cancel</button>
+    </mat-card>
+  </div>
+  <!--View mode-->
+  <div [hidden]="editing">
+    <mat-card>
+      <img src="{{new.image}}" alt="{{new.title}}">
+      <p>Posted by {{new.author}} &bull; {{new.published.toDate() | date: 'dd/MM/yyyy'}}</p>
+      <mat-card-content>
+        <h2>{{new.title}}</h2>
+        <p>{{new.content}}</p>
+      </mat-card-content>
+      <mat-card-actions align="end" *ngIf="auth.currentUserId === new.authorId">
+        <button mat-icon-button (click)="editing=true">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>

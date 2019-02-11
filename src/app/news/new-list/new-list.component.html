@@ -1,0 +1,14 @@
+<section>
+  <mat-card *ngFor="let new of news | async">
+    <mat-card-content routerLink="{{new.id}}">
+      <img src="{{new.image}}" alt="{{new.title}}">
+      <h2>{{new.title}}</h2>
+      <p><small>Posted by {{new.author}} &bull; on {{new.published.toDate() | date: 'dd/MM/yyyy'}}</small></p>
+    </mat-card-content>
+    <mat-card-actions align="end" *ngIf="auth.currentUserId === new.authorId">
+      <button mat-icon-button (click)="delete(new.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>
